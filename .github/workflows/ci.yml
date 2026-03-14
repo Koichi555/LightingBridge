@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  backend-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: |
+          if [ -f backend/requirements.txt ]; then
+            pip install -r backend/requirements.txt
+          else
+            echo "backend/requirements.txt not found, skipping install"
+          fi
+
+      - name: Run backend smoke tests
+        run: |
+          export PYTHONPATH=backend
+          if [ -d backend/tests ]; then
+            pytest backend/tests -q
+          else
+            echo "No tests directory found, skipping pytest"
+          fi
+
+  ui-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check ui/package.json exists
+        run: |
+          if [ -f ui/package.json ]; then
+            echo "ui/package.json found"
+          else
+            echo "ui/package.json not found, skipping UI check"
+          fi
+
+      - name: UI placeholder build check
+        run: echo "Add npm install and build steps once UI source is committed"
