@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Node / UI
+node_modules/
+dist/
+coverage/
+
+# Build / package
+build/
+release_build/
+*.zip
+*.7z
+*.exe
+
+# PyInstaller
+_internal/
+*.spec
+
+# Logs
+logs/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local secrets
+.env
+.env.*
+
+# Production config
+config/*.xlsx
+
+# Keep templates
+!config_templates/*.xlsx
+!config_templates/**/*.xlsx
